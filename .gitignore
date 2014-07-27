@@ -5,3 +5,5 @@ data/
 build/
 CMakeFiles
 Makefile
+*.pyc
+*.swp
