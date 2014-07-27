@@ -1,0 +1,7 @@
+cmake_minimum_required(VERSION 2.8)
+project( Sclera )
+find_package( OpenCV REQUIRED )
+add_executable( samplePupils samplePupils.cpp )
+add_executable( lbpFaceDetection lbpFaceDetection.cpp )
+target_link_libraries( samplePupils ${OpenCV_LIBS} )
+target_link_libraries( lbpFaceDetection ${OpenCV_LIBS} )

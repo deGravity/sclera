@@ -1,0 +1,7 @@
+.DS_Store
+thumbs.db
+*.o
+data/
+build/
+CMakeFiles
+Makefile
