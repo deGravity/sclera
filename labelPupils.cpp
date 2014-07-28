@@ -6,6 +6,11 @@ using namespace cv;
 
 const int defaultRadius = 10;
 const int minRadius = 5;
+// HACK! Resize window counts the title bar height and so was cutting off the top of the window
+// I do not expect this to be portable to other systems (and definitely not to other OSes
+// Probably solution is to get the Qt window handle and manually get sizes - will avoid this
+// unless it in necessary.
+const int osx_menu_height = 22;
 
 Mat originalImage;
 int radius;
@@ -31,7 +36,8 @@ void drawImage(int x, int y) {
         circle( markedImage, markCenter, markRadius, Scalar( 255, 255, 0) );
     }
 
-    imshow("Mark Pupil", markedImage);
+    imshow("Mark Pupils", markedImage);
+    resizeWindow("Mark Pupils", markedImage.cols, markedImage.rows + osx_menu_height);
 }
 
 void save() {
@@ -98,11 +104,11 @@ int main ( int argc, char** argv ) {
     filename = (char*) malloc(strlen(argv[1]) + 1);
     strcpy( filename, argv[1] );
 
-    namedWindow("Mark Pupil", WINDOW_NORMAL );
-    imshow("Mark Pupil", originalImage);
-    resizeWindow("MarkPupil", originalImage.cols * scaleFactor, originalImage.rows * scaleFactor);
+    namedWindow("Mark Pupils", WINDOW_NORMAL );
+    imshow("Mark Pupils", originalImage);
+    resizeWindow("Mark Pupils", originalImage.cols, originalImage.rows + osx_menu_height);
 
-    setMouseCallback("Mark Pupil", call_back_function, NULL);
+    setMouseCallback("Mark Pupils", call_back_function, NULL);
 
     waitKey(0);
     free(filename);
